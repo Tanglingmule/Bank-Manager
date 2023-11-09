@@ -3,6 +3,9 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import pandas as pd
 
+def check_details(username, password, recovery):
+
+
 default_text = True
 def delete_text_username(event):
   global default_text
@@ -33,24 +36,25 @@ window_theme=ttk.Style(theme='darkly')
 
 username_placeholder='Username here'
 username = ttk.Entry(register_window, style='info.Tentry')
-username.pack(pady=50)
+username.pack(pady=5)
 username.insert(END, username_placeholder)
 username.bind("<Button-1>", delete_text_username)
 
 password_placeholder='Password here'
 password = ttk.Entry(register_window, style='info.Tentry')
-password.pack(pady=52)
+password.pack(pady=5)
 password.insert(END, password_placeholder)
 password.bind('<Button-1>', delete_text_password)
 
 recovery_placeholder='Recovery Key here (OPTIONAL)'
 recovery= ttk.Entry(register_window, style='info.Tentry')
-recovery.pack(pady=54)
+recovery.pack(pady=5)
 recovery.insert(END, recovery_placeholder)
 recovery.bind('<Button-1>', delete_text_recovery)
 
-login_button = ttk.Button(register_window, text='Click To Login', style='info.Tbutton')
-login_button.pack(pady=56)
+login_button = ttk.Button(register_window, text='Click To Login', style='info.Tbutton', command='check_detail')
+login_button.pack(pady=5)
+
 
 
 
