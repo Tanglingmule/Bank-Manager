@@ -5,6 +5,7 @@ from ttkbootstrap.dialogs import *
 import pandas as pd
 
 def check_details(username, password, recovery):
+    print(username)
     if not recovery:
         if not username:
             Messagebox.show_error(message = 'No username', title = 'Invalid', parent = None, alert = True)
@@ -13,12 +14,12 @@ def check_details(username, password, recovery):
     Messagebox.ok(message= 'Logged In', alert= True, title= 'Logged In Successfully', parent= None)
     return True
 
-def empty_entries():
-    if username == username_placeholder:
+def empty_entries(username_get, password_get, recovery_get):
+    if username_get == username_placeholder:
         username.delete(0,'end')
-    if password == password_placeholder:
+    if password_get == password_placeholder:
         password.delete(0, 'end')
-    if recovery == recovery_placeholder:
+    if recovery_get == recovery_placeholder:
         recovery.delete(0, 'end')
 
 
@@ -71,7 +72,7 @@ recovery.insert(END, recovery_placeholder)
 recovery.bind('<FocusIn>', recovery_erase)
 recovery.bind('<FocusOut>', recovery_add)
 
-login_button = ttk.Button(register_window, text='Click To Login', style='info.Tbutton', command= lambda: [check_details(username.get(),password.get(),recovery.get()),])
+login_button = ttk.Button(register_window, text='Click To Login', style='info.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), recovery.get()),check_details(username.get(),password.get(),recovery.get()),])
 login_button.pack(pady=5)
 
 
