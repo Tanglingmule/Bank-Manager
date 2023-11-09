@@ -4,7 +4,7 @@ from ttkbootstrap.constants import *
 from ttkbootstrap.dialogs import *
 import pandas as pd
 
-database_userdata= pd.read_csv('database_login.csv', index_col='Username')
+database_userdata= pd.read_csv("database_login.csv", index_col='Username')
 
 def check_details(username, password, recovery):
     #makes sure entries are populated
@@ -20,7 +20,8 @@ def check_details(username, password, recovery):
             pass
         else:
             row= database_userdata.loc[username]
-            if password != database_userdata[row,]
+            if password != database_userdata[row,'Password']:
+                Messagebox.show_error(message= 'Incorrect Password', title= 'Invalid', parent= None, alert= True)
             #compare password to the password stored for the username   
     else:
         if recovery not in database_userdata:
