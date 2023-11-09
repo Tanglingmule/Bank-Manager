@@ -1,9 +1,13 @@
 import tkinter as tk
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
+from ttkbootstrap.dialogs import *
 import pandas as pd
 
 def check_details(username, password, recovery):
+  if not recovery:
+    if not username:
+      Messagebox.show_error(message='No username', title='Invalid', parent=None, alert=True)
 
 
 default_text = True
@@ -52,7 +56,7 @@ recovery.pack(pady=5)
 recovery.insert(END, recovery_placeholder)
 recovery.bind('<Button-1>', delete_text_recovery)
 
-login_button = ttk.Button(register_window, text='Click To Login', style='info.Tbutton', command='check_detail')
+login_button = ttk.Button(register_window, text='Click To Login', style='info.Tbutton', command=check_details('','',''))
 login_button.pack(pady=5)
 
 
