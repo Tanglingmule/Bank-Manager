@@ -4,29 +4,30 @@ from ttkbootstrap.constants import *
 from ttkbootstrap.dialogs import *
 import pandas as pd
 
-database_userdata= pd.read_csv("database_login.csv", index_col='Username')
+database_userdata= pd.read_csv("database_login.csv")
+print(database_userdata)
 
 def check_details(username, password, recovery):
     #makes sure entries are populated
     if not recovery:
         if not username:
             Messagebox.show_error(message = 'No username', title = 'Invalid', parent = None, alert = True)
-            pass
+            return
         elif not password:
             Messagebox.show_error(message = 'No password', title = 'Invalid', parent= None, alert = True)
-            pass
-        elif username not in database_userdata:
+            return
+        elif not database_userdata['Username'].str.contains(username).any():
             Messagebox.show_error(message= 'Username does not exist', title= 'Invalid', parent= None, alert= True)
-            pass
-        else:
-            row= database_userdata.loc[username]
-            if password != database_userdata[row,'Password']:
+            return
+        else:  #compare password to the password stored for the username   
+            row_correct = database_userdata[database_userdata['Username'] == username]
+            if password != row_correct['Password'].values[0]:
                 Messagebox.show_error(message= 'Incorrect Password', title= 'Invalid', parent= None, alert= True)
-            #compare password to the password stored for the username   
+                return
     else:
         if recovery not in database_userdata:
             Messagebox.show_error(message= 'Recovery Key does not exist', title= 'Invalid', parent= None, alert= True)
-    Messagebox.ok(message= 'Logged In', alert= True, title= 'Logged In Successfully', parent= None)
+    Messagebox.show_info(message= 'Logged In', alert= True, title= 'Logged In Successfully', parent= None)
     return True
 
 def empty_entries(username_get, password_get, recovery_get):
