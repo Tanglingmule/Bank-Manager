@@ -5,17 +5,21 @@ from ttkbootstrap.dialogs import *
 import pandas as pd
 
 def check_details(username, password, recovery):
-  if not recovery:
-    if not username:
-      Messagebox.show_error(message = 'No username', title = 'Invalid', parent = None, alert = True)
-    elif not password:
-      Messagebox.show_error(message = 'No password', title = 'Invalid', parent= None, alert = True)
-  return True
+    if not recovery:
+        if not username:
+            Messagebox.show_error(message = 'No username', title = 'Invalid', parent = None, alert = True)
+        elif not password:
+            Messagebox.show_error(message = 'No password', title = 'Invalid', parent= None, alert = True)
+    Messagebox.ok(message= 'Logged In', alert= True, title= 'Logged In Successfully', parent= None)
+    return True
 
 def empty_entries():
-    username.delete(0,'end')
-    password.delete(0, 'end')
-    recovery.delete(0, 'end')
+    if username == username_placeholder:
+        username.delete(0,'end')
+    if password == password_placeholder:
+        password.delete(0, 'end')
+    if recovery == recovery_placeholder:
+        recovery.delete(0, 'end')
 
 
 def username_erase(event=None):
