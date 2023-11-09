@@ -4,6 +4,8 @@ from ttkbootstrap.constants import *
 from ttkbootstrap.dialogs import *
 import pandas as pd
 
+database_userdata= pd.read_csv('database_login.csv')
+
 def check_details(username, password, recovery):
     #make sure entries are populated
     if not recovery:
@@ -13,7 +15,7 @@ def check_details(username, password, recovery):
         elif not password:
             Messagebox.show_error(message = 'No password', title = 'Invalid', parent= None, alert = True)
             pass
-        elif username != #username from database:
+        elif username not in database_userdata:
             Messagebox.show_error(message= 'Username does not exist', title= 'Invalid', parent= None, alert= True)
             pass
         else:
