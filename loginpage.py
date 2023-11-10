@@ -51,7 +51,12 @@ def remember(state, username):
         # Save the updated DataFrame to the CSV file
         database_userdata.to_csv('database_login.csv', index=False)
 
-
+def register_window():
+    register= tk.Tk()
+    register.title('Register Now!')
+    register.attributes('-topmost', True)
+    register.geometry('600x600')
+    window_theme=ttk.Style(theme='darkly')
 
 def username_erase(event=None):
     if username.get() == username_placeholder:
@@ -109,7 +114,8 @@ login_button.pack(pady=5)
 remember_me = ttk.Checkbutton(login_window, text='Remember me', style='Roundtoggle.Toolbutton', variable= var)
 remember_me.pack(pady=3)
 
-
+register_button = ttk.Button(login_window, text= 'Or Register An Account', style='secondary.Tbutton',command= register_window)
+register_button.pack(padx=10)
 
 
 
