@@ -4,6 +4,7 @@ from ttkbootstrap.constants import *
 from ttkbootstrap.dialogs import *
 import pandas as pd
 import socket
+import registerpage as register
 
 database_userdata= pd.read_csv("database_login.csv")
 print(database_userdata)
@@ -52,12 +53,7 @@ def remember(state, username):
         database_userdata.to_csv('database_login.csv', index=False)
 
 def register_window():
-    register= tk.Tk()
-    register.title('Register Now!')
-    register.attributes('-topmost', True)
-    register.geometry('600x600')
-    window_theme=ttk.Style(theme='darkly')
-
+    register.register_window()
 def username_erase(event=None):
     if username.get() == username_placeholder:
         username.delete(0,'end')
