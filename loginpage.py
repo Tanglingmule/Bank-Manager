@@ -22,7 +22,7 @@ def check_details(username, password, recovery):
             return
         else:  #compare password to the password stored for the username, it does this by creating a new data frame with all rows of matching usernames, then compares the first index of the password column to the users' inputted password
             row_correct = database_userdata[database_userdata['Username'] == username]
-            if password != row_correct['Password'].values[0]:
+            if password != row_correct['Password'].values[0]:            # can be changed to something like password_data = df.loc['row_correct', 'Password']
                 Messagebox.show_error(message= 'Incorrect Password', title= 'Invalid', parent= None, alert= True)
                 return
     else:
