@@ -4,7 +4,6 @@ from ttkbootstrap.constants import *
 from ttkbootstrap.dialogs import *
 import pandas as pd
 import socket
-import csv
 
 database_userdata= pd.read_csv("database_login.csv")
 print(database_userdata)
