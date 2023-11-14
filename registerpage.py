@@ -13,6 +13,10 @@ def generate_recovery():
     generated_recovery=''.join(random.choice(characters) for i in range(length))
     return(generated_recovery)
 
+def username_erase(event=None):
+    if username.get() == username_placeholder:
+        username.delete(0,'end')
+
 def register_window():
     register= tk.Tk()
     register.title('Register Now!')

@@ -9,6 +9,9 @@ import registerpage as register
 database_userdata= pd.read_csv("database_login.csv")
 print(database_userdata)
 
+
+#some sort of if loop so that if the saved ip == to current ip, autofill all boxes for the user, data taken from the database
+
 def check_details(username, password, recovery):
     #makes sure entries are populated
     if not recovery:
@@ -54,6 +57,7 @@ def remember(state, username):
 
 def register_window():
     register.register_window()
+    
 def username_erase(event=None):
     if username.get() == username_placeholder:
         username.delete(0,'end')
