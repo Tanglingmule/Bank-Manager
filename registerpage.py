@@ -13,9 +13,7 @@ def generate_recovery():
     generated_recovery=''.join(random.choice(characters) for i in range(length))
     return(generated_recovery)
 
-def username_erase(event=None):
-    if username.get() == username_placeholder:
-        username.delete(0,'end')
+
 
 def register_window():
     register= tk.Tk()
@@ -23,6 +21,18 @@ def register_window():
     register.attributes('-topmost', True)
     register.geometry('600x600')
     window_theme=ttk.Style(theme='darkly')
+
+    def username_erase(event=None):
+        if username.get() == username_placeholder:
+            username.delete(0,'end')
+        
+    def email_erase(event=None):
+        if email.get() == email_placeholder:
+            email.delete(0, END)
+    
+    def password_erase(event=None):
+        if password.get() == password_placeholder:
+            password.delete(0, END)
 
     email_placeholder='Email Here'
     email = ttk.Entry(register, style='primary.Tentry')
