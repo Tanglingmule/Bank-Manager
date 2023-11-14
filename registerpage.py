@@ -44,4 +44,6 @@ def register_window():
     password.insert(END, email_placeholder)
     password.bind('<FocusIn>',password_erase)
     password.bind('<FocusOut>', password_add)
+
+    register.mainloop()
     
