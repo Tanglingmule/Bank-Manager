@@ -5,6 +5,9 @@ from ttkbootstrap.dialogs import *
 import pandas as pd
 import random
 import string
+from emailsuffixes import all_email_suffixes
+
+database_userdata= pd.read_csv("database_login.csv")
 
 
 def generate_recovery():
@@ -14,10 +17,26 @@ def generate_recovery():
     generated_recovery=''.join(random.choice(characters) for i in range(length))
     return(generated_recovery)
 
+def check_existing(username_get, email_get):    #checks the database for accounts with the same username or email
+    if database_userdata['Username'].str.contains(username_get).any():
+        Messagebox.show_error(message= 'Username already exists', title= 'Invalid', parent= None, alert= True)
+    if database_userdata['Email'].str.contains(email_get).any():
+        Messagebox.show_error(message= 'Email is already in use for another active account', title= 'Invalid', parent= None, alert= True)
 
+def check_filled(username, password, email):
+    if not username:
+        Messagebox.show_error(message= 'No username entered', title= 'Invalid', parent= None, alert= True)
+    if not password:
+        Messagebox.show_error(message= 'No password entered', title= 'Invalid', parent= None, alert= True)
+    if not email:
+         Messagebox.show_error(message= 'No email entered', title= 'Invalid', parent= None, alert= True)
+
+def email_verify(email):
+    split_email= email.split('@')
+    if email[1] not in all_email_suffixes:
+        Messagebox.show_error(message= 'This is not a valid email provider', title= 'Invalid', parent= None, alert= True)
 
 def register_window():
-
     register= tk.Toplevel()
     register.title('Register Now!')
     register.attributes('-topmost', True)
@@ -74,7 +93,7 @@ def register_window():
     password.bind('<FocusIn>',password_erase)
     password.bind('<FocusOut>', password_add)
 
-    register_button = ttk.Button(register_window, text='Click To Register', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), email.get()),check_details(username.get(),password.get(),email.get()),])
+    register_button = ttk.Button(register, text='Click To Register', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), email.get()), check_existing(username.get(),email.get())])
     register_button.pack(pady=5)
 
     register.mainloop()

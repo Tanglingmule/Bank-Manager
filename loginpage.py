@@ -108,7 +108,7 @@ recovery.insert(END, recovery_placeholder)
 recovery.bind('<FocusIn>', recovery_erase)
 recovery.bind('<FocusOut>', recovery_add)
 
-login_button = ttk.Button(login_window, text='Click To Login', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), recovery.get()),check_details(username.get(),password.get(),recovery.get()),])
+login_button = ttk.Button(login_window, text='Click To Login', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), recovery.get()),check_details(username.get(),password.get(),recovery.get())])
 login_button.pack(pady=5)
 
 remember_me = ttk.Checkbutton(login_window, text='Remember me', style='Roundtoggle.Toolbutton', variable= var)
