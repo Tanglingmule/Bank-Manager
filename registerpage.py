@@ -34,7 +34,7 @@ def register_window():
         if password.get() == password_placeholder:
             password.delete(0, END)
 
-    def email_add(event=None):
+    #def email_add(event=None):
         
 
     email_placeholder='Email Here'
