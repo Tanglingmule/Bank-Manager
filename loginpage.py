@@ -10,7 +10,7 @@ database_userdata= pd.read_csv("database_login.csv")
 print(database_userdata)
 
 
-#some sort of if loop so that if the saved ip == to current ip, autofill all boxes for the user, data taken from the database
+#some sort of if statement so that if the saved ip == to current ip, autofill all boxes for the user, data taken from the database
 
 def check_details(username, password, recovery):
     #makes sure entries are populated
@@ -43,6 +43,14 @@ def empty_entries(username_get, password_get, recovery_get):
         password.delete(0, 'end')
     if recovery_get == recovery_placeholder:
         recovery.delete(0, 'end')
+
+def repopulate_entries(username_get, password_get, recovery_get):
+    if username_get == '':
+        username.insert(0, username_placeholder)
+    if password_get == '':
+        password.insert(0, password_placeholder)
+    if recovery_get == '':
+        recovery.insert(0, recovery_placeholder)
 
 def remember(state, username):
     if state:
@@ -108,7 +116,7 @@ recovery.insert(END, recovery_placeholder)
 recovery.bind('<FocusIn>', recovery_erase)
 recovery.bind('<FocusOut>', recovery_add)
 
-login_button = ttk.Button(login_window, text='Click To Login', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), recovery.get()),check_details(username.get(),password.get(),recovery.get())])
+login_button = ttk.Button(login_window, text='Click To Login', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), recovery.get()),check_details(username.get(),password.get(),recovery.get()), repopulate_entries(username.get(), password.get(), recovery.get())])
 login_button.pack(pady=5)
 
 remember_me = ttk.Checkbutton(login_window, text='Remember me', style='Roundtoggle.Toolbutton', variable= var)
