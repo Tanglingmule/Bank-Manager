@@ -11,6 +11,18 @@ print(database_userdata)
 
 
 #some sort of if statement so that if the saved ip == to current ip, autofill all boxes for the user, data taken from the database
+def populate_ip():
+    hostname = socket.gethostname() #get the hostname
+    IP = socket.gethostbyname(hostname) #get ip from hostname
+
+    if database_userdata['IP'].str.contains(IP).any():
+        row_correct = database_userdata[database_userdata['IP'] == IP]
+        
+        username.insert(0, row_correct['Username'])
+        password.insert(0, row_correct['Password'])
+        return True
+    else:
+        return False
 
 def check_details(username, password, recovery):
     #makes sure entries are populated

@@ -15,6 +15,7 @@ def generate_recovery():
     characters = string.ascii_letters + string.digits
     
     generated_recovery=''.join(random.choice(characters) for i in range(length))
+    Messagebox.show_info(message= 'Your Recovery Key is: ' + generate_recovery, title= 'Recovery Key Generated', parent= None, alert= True)
     return(generated_recovery)
 
 def check_existing(username_get, email_get):    #checks the database for accounts with the same username or email
@@ -70,6 +71,13 @@ def register_window():
             password.delete(0, 'end')
         if email_get == email_placeholder:
             email.delete(0, 'end')
+    
+    def add_file(username, password, email, recovery):
+        IP='NaN'
+        new_row = pd.DataFrame([[username, password, email, recovery, IP]], columns=['Username', 'Password', 'Email', 'Recoverykey','IP'])
+        new_database_userdata = pd.concat([database_userdata, new_row], ignore_index=True)
+        new_database_userdata.to_csv('database_login.csv', index= False)
+
             
 
     email_placeholder='Email Here'
@@ -93,7 +101,7 @@ def register_window():
     password.bind('<FocusIn>',password_erase)
     password.bind('<FocusOut>', password_add)
 
-    register_button = ttk.Button(register, text='Click To Register', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), email.get()), check_existing(username.get(),email.get())])
+    register_button = ttk.Button(register, text='Click To Register', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), email.get()), check_existing(username.get(),email.get(), add_file(username.get(), password.get(), email.get(), generate_recovery()))])
     register_button.pack(pady=5)
 
     register.mainloop()
