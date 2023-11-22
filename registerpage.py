@@ -37,7 +37,6 @@ def email_verify(email):
     if split_email[1] not in all_email_suffixes:
         Messagebox.show_error(message= 'This is not a valid email provider', title= 'Invalid', parent= None, alert= True)
 
-print(generate_recovery())
 def register_window():
     register= tk.Toplevel()
     register.title('Register Now!')
