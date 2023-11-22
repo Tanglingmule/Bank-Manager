@@ -15,7 +15,7 @@ def generate_recovery():
     characters = string.ascii_letters + string.digits
     
     generated_recovery=''.join(random.choice(characters) for i in range(length))
-    Messagebox.show_info(message= 'Your Recovery Key is: ' + generate_recovery(), title= 'Recovery Key Generated', parent= None, alert= True)
+    Messagebox.show_info(message= 'Your Recovery Key is: ' + generated_recovery, title= 'Recovery Key Generated', parent= None, alert= True)
     return(generated_recovery)
 
 def check_existing(username_get, email_get):    #checks the database for accounts with the same username or email
@@ -37,6 +37,7 @@ def email_verify(email):
     if split_email[1] not in all_email_suffixes:
         Messagebox.show_error(message= 'This is not a valid email provider', title= 'Invalid', parent= None, alert= True)
 
+print(generate_recovery())
 def register_window():
     register= tk.Toplevel()
     register.title('Register Now!')
@@ -104,5 +105,6 @@ def register_window():
     register_button = ttk.Button(register, text='Click To Register', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), email.get()), check_existing(username.get(),email.get()), add_file(username.get(), password.get(), email.get(), generate_recovery())])
     register_button.pack(pady=5)
 
+    
     register.mainloop()
     
