@@ -21,21 +21,27 @@ def generate_recovery():
 def check_existing(username_get, email_get):    #checks the database for accounts with the same username or email
     if database_userdata['Username'].str.contains(username_get).any():
         Messagebox.show_error(message= 'Username already exists', title= 'Invalid', parent= None, alert= True)
-    if database_userdata['Email'].str.contains(email_get).any():
+    elif database_userdata['Email'].str.contains(email_get).any():
         Messagebox.show_error(message= 'Email is already in use for another active account', title= 'Invalid', parent= None, alert= True)
+    else:
+        return True
 
 def check_filled(username, password, email):
     if not username:
         Messagebox.show_error(message= 'No username entered', title= 'Invalid', parent= None, alert= True)
-    if not password:
+    elif not password:
         Messagebox.show_error(message= 'No password entered', title= 'Invalid', parent= None, alert= True)
-    if not email:
+    elif not email:
          Messagebox.show_error(message= 'No email entered', title= 'Invalid', parent= None, alert= True)
+    else:
+        return True
 
 def email_verify(email):
     split_email= email.split('@')
     if split_email[1] not in all_email_suffixes:
         Messagebox.show_error(message= 'This is not a valid email provider', title= 'Invalid', parent= None, alert= True)
+    else:
+        return True
 
 
 
