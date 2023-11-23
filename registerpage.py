@@ -21,18 +21,23 @@ def generate_recovery():
 def check_existing(username_get, email_get):    #checks the database for accounts with the same username or email
     if database_userdata['Username'].str.contains(username_get).any():
         Messagebox.show_error(message= 'Username already exists', title= 'Invalid', parent= None, alert= True)
+        return False
     elif database_userdata['Email'].str.contains(email_get).any():
         Messagebox.show_error(message= 'Email is already in use for another active account', title= 'Invalid', parent= None, alert= True)
+        return False
     else:
         return True
 
 def check_filled(username, password, email):
     if not username:
         Messagebox.show_error(message= 'No username entered', title= 'Invalid', parent= None, alert= True)
+        return False
     elif not password:
         Messagebox.show_error(message= 'No password entered', title= 'Invalid', parent= None, alert= True)
+        return False
     elif not email:
          Messagebox.show_error(message= 'No email entered', title= 'Invalid', parent= None, alert= True)
+         return False
     else:
         return True
 
@@ -111,22 +116,20 @@ def register_window():
     password.bind('<FocusIn>',password_erase)
     password.bind('<FocusOut>', password_add)
 
+ # to verify all at once on button press 
+    def all_verify(username, password, email):
+        filled = check_filled(username, password, email)
+        if filled == True:
+            email_exist = email_verify(email)
+            if email_exist == True:
+                exist = check_existing(username, email)
+                if exist == True: 
+        # if all are true, add file 
+                    recovery = generate_recovery()
+                    add_file(username, password, email, recovery)
+
     register_button = ttk.Button(register, text='Click To Register', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), email.get()),all_verify(username.get(), password.get(), email.get())])
     register_button.pack(pady=5)
 
-     #need to verify all at once on button press 
-    def all_verify(username, password, email):
-        check_filled(username, password, email)
-        if check_filled() == True:
-            email_exist = email_verify(email)
-            if email_exist == True:
-                exist= check_existing(username, email)
-                if exist == True: 
-                
-
-        # if all are true, add file 
-                    add_file(username, password, email)
-
-    
     register.mainloop()
     
