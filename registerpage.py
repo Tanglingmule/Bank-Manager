@@ -111,8 +111,10 @@ def register_window():
      #need to verify all at once on button press 
     def all_verify(username, password, email):
         check_filled(username, password, email)
-        email_verify(email)
-        check_existing(username, email)
+        if check_filled() == True:
+            email_verify(email)
+            if email_verify() == True:
+                check_existing(username, email)
 
         # if all are true, add file 
         add_file(username, password, email)
