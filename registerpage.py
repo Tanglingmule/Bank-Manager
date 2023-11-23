@@ -37,6 +37,9 @@ def email_verify(email):
     if split_email[1] not in all_email_suffixes:
         Messagebox.show_error(message= 'This is not a valid email provider', title= 'Invalid', parent= None, alert= True)
 
+
+
+
 def register_window():
     register= tk.Toplevel()
     register.title('Register Now!')
@@ -78,7 +81,8 @@ def register_window():
         new_database_userdata = pd.concat([database_userdata, new_row], ignore_index=True)
         new_database_userdata.to_csv('database_login.csv', index= False)
 
-            
+    
+
 
     email_placeholder='Email Here'
     email = ttk.Entry(register, style='primary.Tentry')
@@ -101,8 +105,17 @@ def register_window():
     password.bind('<FocusIn>',password_erase)
     password.bind('<FocusOut>', password_add)
 
-    register_button = ttk.Button(register, text='Click To Register', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), email.get()), check_existing(username.get(),email.get()), add_file(username.get(), password.get(), email.get(), generate_recovery())])
+    register_button = ttk.Button(register, text='Click To Register', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), email.get()),all_verify(username.get(), password.get(), email.get())])
     register_button.pack(pady=5)
+
+     #need to verify all at once on button press 
+    def all_verify(username, password, email):
+        check_filled(username, password, email)
+        email_verify(email)
+        check_existing(username, email)
+
+        # if all are true, add file 
+        add_file(username, password, email)
 
     
     register.mainloop()
