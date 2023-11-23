@@ -118,12 +118,14 @@ def register_window():
     def all_verify(username, password, email):
         check_filled(username, password, email)
         if check_filled() == True:
-            email_verify(email)
-            if email_verify() == True:
-                check_existing(username, email)
+            email_exist = email_verify(email)
+            if email_exist == True:
+                exist= check_existing(username, email)
+                if exist == True: 
+                
 
         # if all are true, add file 
-        add_file(username, password, email)
+                    add_file(username, password, email)
 
     
     register.mainloop()
