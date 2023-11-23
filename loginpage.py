@@ -15,7 +15,7 @@ def populate_ip():
     hostname = socket.gethostname() #get the hostname
     IP = socket.gethostbyname(hostname) #get ip from hostname
 
-    if database_userdata['IP'].str.contains(IP).any():
+    if database_userdata['IP'].str.contains(IP).any(skipna= True):
         row_correct = database_userdata[database_userdata['IP'] == IP]
         
         username.insert(0, row_correct['Username'])
@@ -99,7 +99,8 @@ def recovery_add(event=None):
     if recovery.get() == '':
         recovery.insert(0,recovery_placeholder)
 
-login_window = tk.Tk()
+
+login_window = tk.Toplevel()
 login_window.title('Login Now!')
 login_window.attributes('-topmost', True)
 login_window.geometry('600x600')

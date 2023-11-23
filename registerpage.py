@@ -43,7 +43,7 @@ def check_filled(username, password, email):
 
 def email_verify(email):
     split_email= email.split('@')
-    if split_email[1] not in all_email_suffixes:
+    if split_email[1] not in all_email_suffixes():
         Messagebox.show_error(message= 'This is not a valid email provider', title= 'Invalid', parent= None, alert= True)
     else:
         return True
@@ -85,6 +85,15 @@ def register_window():
             password.delete(0, 'end')
         if email_get == email_placeholder:
             email.delete(0, 'end')
+    
+    def repopulate_entries(username_get, password_get, email_get):
+        if username_get == '':
+            username.insert(0, username_placeholder)
+        if password_get == '':
+            password.insert(0, password_placeholder)
+        if email_get == '':
+            email.insert(0, email_placeholder)
+
     
     def add_file(username, password, email, recovery):
         IP='NaN'
@@ -128,7 +137,7 @@ def register_window():
                     recovery = generate_recovery()
                     add_file(username, password, email, recovery)
 
-    register_button = ttk.Button(register, text='Click To Register', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), email.get()),all_verify(username.get(), password.get(), email.get())])
+    register_button = ttk.Button(register, text='Click To Register', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), email.get()),all_verify(username.get(), password.get(), email.get()), repopulate_entries(username.get(), password.get(), email.get())])
     register_button.pack(pady=5)
 
     register.mainloop()
