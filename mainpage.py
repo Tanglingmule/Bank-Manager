@@ -8,7 +8,7 @@ import registerpage as register
 import loginpage as login
 
 def main_page():
-    main_window = tk.Tk()
+    main_window = tk.Toplevel()
     main_window.title('Doyoda')
     main_window.attributes('-topmost', True)
     main_window.geometry('600x600')

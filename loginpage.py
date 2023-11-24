@@ -5,6 +5,7 @@ from ttkbootstrap.dialogs import *
 import pandas as pd
 import socket
 import registerpage as register
+import mainpage as main
 
 database_userdata= pd.read_csv("database_login.csv")
 print(database_userdata)
@@ -46,6 +47,7 @@ def check_details(username, password, recovery):
             Messagebox.show_error(message= 'Recovery Key does not exist', title= 'Invalid', parent= None, alert= True)
     remember(var.get(), username)
     Messagebox.show_info(message= 'Logged In', alert= True, title= 'Logged In Successfully', parent= None)
+    main.main_page()
     return True
 
 def empty_entries(username_get, password_get, recovery_get):
@@ -100,7 +102,7 @@ def recovery_add(event=None):
         recovery.insert(0,recovery_placeholder)
 
 
-login_window = tk.Toplevel()
+login_window = tk.Tk()
 login_window.title('Login Now!')
 login_window.attributes('-topmost', True)
 login_window.geometry('600x600')
@@ -132,13 +134,13 @@ recovery.bind('<FocusOut>', recovery_add)
 login_button = ttk.Button(login_window, text='Click To Login', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), recovery.get()),check_details(username.get(),password.get(),recovery.get()), repopulate_entries(username.get(), password.get(), recovery.get())])
 login_button.pack(pady=5)
 
-remember_me = ttk.Checkbutton(login_window, text='Remember me', style='Roundtoggle.Toolbutton', variable= var)
+remember_me = ttk.Checkbutton(login_window, text='Remember me', variable= var)
 remember_me.pack(pady=3)
 
 register_button = ttk.Button(login_window, text= 'Or Register An Account', style='secondary.Tbutton',command= register_window)
 register_button.pack(padx=10)
 
 
-
+populate_ip()
 login_window.mainloop()
 
