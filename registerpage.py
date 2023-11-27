@@ -96,6 +96,8 @@ def register_window():
 
     
     def add_file(username, password, email, recovery):
+        #username also needs to be added to the bank detail spreadsheet
+                
         IP='NaN'
         new_row = pd.DataFrame([[username, password, email, recovery, IP]], columns=['Username', 'Password', 'Email', 'Recoverykey','IP'])
         new_database_userdata = pd.concat([database_userdata, new_row], ignore_index=True)
