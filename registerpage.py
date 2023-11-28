@@ -8,6 +8,7 @@ import string
 from emailsuffixes import all_email_suffixes
 
 database_userdata= pd.read_csv("database_login.csv")
+database_banking = pd.read_csv("database_banking.csv")
 
 
 def generate_recovery():
@@ -102,6 +103,10 @@ def register_window():
         new_row = pd.DataFrame([[username, password, email, recovery, IP]], columns=['Username', 'Password', 'Email', 'Recoverykey','IP'])
         new_database_userdata = pd.concat([database_userdata, new_row], ignore_index=True)
         new_database_userdata.to_csv('database_login.csv', index= False)
+
+        new_row = pd.DataFrame([username], columns= ['Username'])
+        new_database_banking = pd.concat([database_banking, new_row], ignore_index= True)
+        new_database_banking.to_csv('database_banking.csv', index= False)
 
     
 
