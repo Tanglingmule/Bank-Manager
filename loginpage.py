@@ -5,7 +5,7 @@ from ttkbootstrap.dialogs import *
 import pandas as pd
 import socket
 import registerpage as register
-import mainpage as main
+from mainpage import main_page as main
 
 database_userdata= pd.read_csv("database_login.csv")
 print(database_userdata)
@@ -21,8 +21,8 @@ def populate_ip():
     if database_userdata['IP'].str.contains(IP).any(skipna= True):
         row_correct = database_userdata[database_userdata['IP'] == IP]
         
-        username.insert(0, row_correct['Username'])
-        password.insert(0, row_correct['Password'])
+        username.insert(0, row_correct['Username'].values[0])
+        password.insert(0, row_correct['Password'].values[0])
         return True
     else:
         return False
@@ -49,7 +49,7 @@ def check_details(username, password, recovery):
             Messagebox.show_error(message= 'Recovery Key does not exist', title= 'Invalid', parent= None, alert= True)
     remember(var.get(), username)
     Messagebox.show_info(message= 'Logged In', alert= True, title= 'Logged In Successfully', parent= None)
-    main.main_page()
+    main(username)
     return True
 
 def empty_entries(username_get, password_get, recovery_get):
@@ -111,20 +111,30 @@ login_window.geometry('600x600')
 window_theme=ttk.Style(theme='darkly')
 var = tk.IntVar()
 
+
 username_placeholder='Username here'
 username = ttk.Entry(login_window, style='primary.Tentry')
 username.pack(pady=5)
-username.insert(END, username_placeholder)
-username.bind('<FocusIn>',username_erase)
-username.bind('<FocusOut>',username_add)
+
 
 
 password_placeholder='Password here'
 password = ttk.Entry(login_window, style='primary.Tentry')
 password.pack(pady=5)
-password.insert(END, password_placeholder)
-password.bind('<FocusIn>', password_erase)
-password.bind('<FocusOut>', password_add)
+
+
+if populate_ip():
+    pass
+else:
+    if password != '':
+        password.insert(END, password_placeholder)
+        password.bind('<FocusIn>', password_erase)
+        password.bind('<FocusOut>', password_add)
+
+    if username != '':
+        username.insert(END, username_placeholder)
+        username.bind('<FocusIn>',username_erase)
+        username.bind('<FocusOut>',username_add)
 
 recovery_placeholder='Recovery Key here (OPTIONAL)'
 recovery= ttk.Entry(login_window, style='primary.Tentry')
@@ -136,13 +146,16 @@ recovery.bind('<FocusOut>', recovery_add)
 login_button = ttk.Button(login_window, text='Click To Login', style='primary.Tbutton', command= lambda: [empty_entries(username.get(), password.get(), recovery.get()),check_details(username.get(),password.get(),recovery.get()), repopulate_entries(username.get(), password.get(), recovery.get())])
 login_button.pack(pady=5)
 
+var = tk.BooleanVar(value=True)
 remember_me = ttk.Checkbutton(login_window, text='Remember me', variable= var)
 remember_me.pack(pady=3)
+
+ 
 
 register_button = ttk.Button(login_window, text= 'Or Register An Account', style='secondary.Tbutton',command= register_window)
 register_button.pack(padx=10)
 
 
-populate_ip()
+
 login_window.mainloop()
 
