@@ -44,10 +44,13 @@ def check_filled(username, password, email):
 
 def email_verify(email):
     split_email= email.split('@')
-    if split_email[1] not in all_email_suffixes():
-        Messagebox.show_error(message= 'This is not a valid email provider', title= 'Invalid', parent= None, alert= True)
+    if len(split_email) <= 1 or split_email[-1] not in all_email_suffixes():
+            Messagebox.show_error(message='This is not a valid email provider', title='Invalid', parent=None, alert=True)
+            return False
     else:
-        return True
+            return True
+    
+      
 
 
 

@@ -16,6 +16,8 @@ def populate_ip():
     hostname = socket.gethostname() #get the hostname
     IP = socket.gethostbyname(hostname) #get ip from hostname
 
+    database_userdata['IP'] = database_userdata['IP'].astype(str)
+
     if database_userdata['IP'].str.contains(IP).any(skipna= True):
         row_correct = database_userdata[database_userdata['IP'] == IP]
         
