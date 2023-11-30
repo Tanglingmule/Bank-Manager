@@ -31,4 +31,7 @@ def main_page(username):
     bank_history = ttk.Button(main_window, text= 'Transaction History')
     bank_history.pack(pady=5)
 
+
+def balance_page(username):
+    database_bankdata.loc[database_bankdata['Username'] == username]
     
