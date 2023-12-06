@@ -20,7 +20,7 @@ def main_page(username):
     welcome = ttk.Label(main_window,text='Welcome '+username)
     welcome.pack(pady=5)
 
-    bank_details = ttk.Button(main_window, text='Bank Details')
+    bank_details = ttk.Button(main_window, text='Bank Details', command = lambda:details_page(username))
     bank_details.pack(pady=5)
 
     bank_balance = ttk.Button(main_window, text='Balance', command= lambda:balance_page(username))
@@ -37,6 +37,8 @@ def balance_page(username):
 
     balance_window = tk.Toplevel()
     balance_window.title('Balance Page')
+    balance_window.attributes('-topmost', True)
+    balance_window.geometry('300x300')
 
     row_correct = database_bankdata.loc[database_bankdata['Username'] == username]
     balance = row_correct['BankBalance'].values[0]
@@ -49,3 +51,26 @@ def balance_page(username):
     balance_label.pack(pady=10)
    
     balance_window.mainloop()
+
+def details_page(username):
+    details_window = tk.Toplevel()
+    details_window.title('Bank Details')
+    details_window.attributes('-topmost', True)
+    details_window.geometry('300x300')
+
+    row_correct = database_bankdata.loc[database_bankdata['Username'] == username]
+    details = row_correct['BankDetails'].values[0]
+
+    #create a label to display
+    details = str(details)
+
+    if details =='nan':
+        details='No Details Have Been Given'
+
+    details_label = ttk.Label(details_window, text = details)
+    details_label.pack(pady = 20)
+
+    update_details = ttk.Button(details_window, text='Update Your Bank Details')
+    update_details.pack(pady=10)
+
+    details_window.mainloop()
