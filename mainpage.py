@@ -132,7 +132,7 @@ def main_page(username):
         if details =='nan':
             details='No Details Have Been Given'
 
-        details_label = ttk.Label(details_window, text = details)
+        details_label = ttk.Label(details_window, text = 'Your card number is: '+ details)
         details_label.pack(pady = 20)
 
         button_update_details = ttk.Button(details_window, text='Update Your Bank Details', command= lambda: update_details(username))
