@@ -47,7 +47,7 @@ def main_page(username):
 
 
         amount_placeholder='Amount Here'
-        amount = ttk.Entry(new_amount_window, style='primary.Tentry')
+        amount = ttk.Entry(transaction_window, style='primary.Tentry')
         amount.pack(pady=5)
         amount.insert(END, amount_placeholder)
         amount.bind('<FocusIn>',amount_erase)
