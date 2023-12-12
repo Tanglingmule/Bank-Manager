@@ -29,8 +29,52 @@ def main_page(username):
     bank_transaction = ttk.Button(main_window, text='Transaction')
     bank_transaction.pack(pady=5)
 
-    bank_history = ttk.Button(main_window, text= 'Transaction History')
+    bank_history = ttk.Button(main_window, text= 'Transaction History', command= lambda:check_history(username))
     bank_history.pack(pady=5)
+
+    def make_transaction(username):
+        transaction_window = tk.Toplevel()
+        transaction_window.title('Make Transaction')
+        transaction_window.attributes('-topmost', True)
+        transaction_window.geometry('300x300')
+
+        def amount_erase(event=None):
+                if amount.get() == amount_placeholder:
+                    amount.delete(0,'end')
+        def amount_add(event=None):
+                if amount.get() == '':
+                    amount.insert(0,amount_placeholder)
+
+
+        amount_placeholder='Amount Here'
+        amount = ttk.Entry(new_amount_window, style='primary.Tentry')
+        amount.pack(pady=5)
+        amount.insert(END, amount_placeholder)
+        amount.bind('<FocusIn>',amount_erase)
+        amount.bind('<FocusOut>',amount_add)
+
+
+
+    def check_history(username):
+        history_window = tk.Toplevel()
+        history_window.title('Transaction History')
+        history_window.attributes('-topmost', True)
+        history_window.geometry('300x300')
+
+        
+        row_correct = database_bankdata.loc[database_bankdata['Username'] == username]
+        history = row_correct['Transaction'].values
+
+        # Create a StringVar to update the label dynamically
+        balance_var = tk.StringVar(value=f'Your History: {history}')
+
+        # Create a ttk.Label to display the balance
+        balance_label = ttk.Label(history_window, textvariable=balance_var)
+        balance_label.pack(pady=10)
+    
+        history_window.mainloop()
+
+
 
     def update_details(username):
 
