@@ -45,6 +45,13 @@ def main_page(username):
                 if amount.get() == '':
                     amount.insert(0,amount_placeholder)
 
+        def do_transaction(event=None):
+             if amount.get() > 0:
+                  alert = Messagebox.show_info(message= 'Amount cannot be negative', title= 'Error', parent= None, alert= True)
+             else:
+                  alert = Messagebox.show_info(message= 'Transaction Successful', title= 'Successful', parent= None, alert= True)
+                #logic for taking money from the account goes here
+
 
         amount_placeholder='Amount Here'
         amount = ttk.Entry(transaction_window, style='primary.Tentry')
