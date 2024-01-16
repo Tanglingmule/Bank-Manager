@@ -6,6 +6,7 @@ import pandas as pd
 import random
 import string
 from emailsuffixes import all_email_suffixes
+import sqlite3
 
 database_userdata= pd.read_csv("database_login.csv")
 database_banking = pd.read_csv("database_banking.csv")

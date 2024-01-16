@@ -6,6 +6,7 @@ import pandas as pd
 import socket
 import registerpage as register
 from mainpage import main_page as main
+import sqlite3
 
 database_userdata= pd.read_csv("database_login.csv")
 print(database_userdata)
@@ -154,6 +155,10 @@ remember_me.pack(pady=3)
 
 register_button = ttk.Button(login_window, text= 'Or Register An Account', style='secondary.Tbutton',command= register_window)
 register_button.pack(padx=10)
+
+con = sqlite3.connect('database.db')
+cur = con.cursor()
+cur.execute('''CREATE TABLE IF NOT EXISTS userdata(username, password, recovery_key, IP)''')
 
 
 
