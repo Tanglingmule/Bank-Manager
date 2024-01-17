@@ -10,6 +10,11 @@ import sqlite3
 
 database_userdata= pd.read_csv("database_login.csv")
 database_banking = pd.read_csv("database_banking.csv")
+con = sqlite3.connect('database.db')
+cur = con.cursor()
+
+usernames = cur.execute("SELECT username FROM userdata").fetchall()
+print(usernames)
 
 
 def generate_recovery():
@@ -21,10 +26,12 @@ def generate_recovery():
     return(generated_recovery)
 
 def check_existing(username_get, email_get):    #checks the database for accounts with the same username or email
-    if database_userdata['Username'].str.contains(username_get).any():
+    usernames = cur.execute("SELECT * FROM userdata WHERE username = ?", (username_get,)).fetchall()
+    emails = cur.execute("SELECT * FROM userdata WHERE email = ?", (email_get,)).fetchall()
+    if usernames:
         Messagebox.show_error(message= 'Username already exists', title= 'Invalid', parent= None, alert= True)
         return False
-    elif database_userdata['Email'].str.contains(email_get).any():
+    elif emails:
         Messagebox.show_error(message= 'Email is already in use for another active account', title= 'Invalid', parent= None, alert= True)
         return False
     else:
